@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+int a[10][10],D[10][10];
+int n;
+
+void Floyd(int a[10][10],int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            D[i][j]=a[i][j];
+        }
+    }
+
+    for(int k=0;k<n;k++)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                D[i][j]=min(D[i][j],(D[i][k]+D[k][j]));
+            }
+        }
+    }
+}
+
+int min(int a,int b)
+{
+    if(a<b)
+        return a;
+    else
+        return b;
+}
+
+void main()
+{
+    clock_t start,end;
+    double time_taken;
+    printf("enter the number of vertices");
+    scanf("%d",&n);
+    a[n][n];
+    printf("Enter the cost adjanceny matrix\n");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("The Distance matrix\n");
+    start=clock();
+    Floyd(a,n);
+    end=clock();
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            printf("%d ",D[i][j]);
+        }
+        printf("\n");
+    }
+    time_taken=(double)(end-start)/CLOCKS_PER_SEC;
+    printf("time taken: %d",time_taken);
+}
