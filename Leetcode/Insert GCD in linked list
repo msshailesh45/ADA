@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+int GCD(int a, int b)
+{
+    int r=0;
+    while(b!=0)
+    {
+        r=a%b;
+        a=b;
+        b=r;
+    }
+    return a;
+}
+struct ListNode* getNode()
+{
+    struct ListNode* temp;
+    temp=(struct ListNode*)malloc(sizeof(struct ListNode));
+    return temp;
+}
+struct ListNode* insertGreatestCommonDivisors(struct ListNode* head) 
+{
+    int a;
+    struct ListNode* current=head->next;
+    struct ListNode* prev=head;
+    struct ListNode* temp;
+    while(current!=NULL)
+    {
+        a=GCD(prev->val,current->val);
+        temp=getNode();
+        temp->val=a;
+        prev->next=temp;
+        temp->next=current;
+        prev=current;
+        current=current->next;
+    }
+    return head;
+}
